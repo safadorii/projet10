@@ -116,13 +116,19 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
+        {/* On ajoute "last" pour supprimer les erreurs "undefined" de la console 
+            => Avec l'opérateur "&&", on restitue conditionnellement le composant
+          */}
+        {last &&(
+          <EventCard
           imageSrc={last?.cover}
           title={last?.title}
           date={new Date(last?.date)}
           small
-          label="boom"
+          label={last?.type}
+          data-testid="lastEvent"
         />
+        )} 
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
