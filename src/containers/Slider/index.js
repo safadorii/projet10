@@ -9,8 +9,8 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     /* 
-      Changement de l'opérateur logique pour trier dans le bon sens les images De la plus récente à la plus ancienne (ordre décroissant) */
-  new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
+      Changement de l'opérateur logique pour trier dans le bon sens les images De  la plus ancienne à a plus récente  (ordre croissant) */
+  new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
     setTimeout(
