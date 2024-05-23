@@ -9,12 +9,14 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     /* 
-      Changement de l'opérateur logique pour trier dans le bon sens les images De  la plus ancienne à a plus récente  (ordre croissant) */
-  new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+      Changement de l'opérateur logique pour trier dans le bon sens les images
+      De la plus récente à la plus ancienne (ordre décroissant)
+    */
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
     setTimeout(
-       /*
+      /*
         Suppression de l'élément "undefined" en ajoutant +1 à index
         Ajout de "?" pour vérifier que byDateDesc existe
       */
@@ -25,21 +27,20 @@ const Slider = () => {
   useEffect(() => {
     nextCard();
   });
+
   return (
     <div className="SlideCardList">   
       {/* Suppresion des <></> qui encapsulait 2 éléments différents */}   
       {byDateDesc?.map((event, idx) => (
-       
-          <div
-            key={event.data}>
-              <div
+        // Changement de la key pour qu'elle soit unique pour chaque slide
+        <div key={event.date}>
+          <div            
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
           >
-               {/* Attribut alt modifié pour avoir les renseignements correspondants à l'image */}
+            {/* Attribut alt modifié pour avoir les renseignements correspondants à l'image */}
             <img src={event.cover} alt={event.title} />
-
             <div className="SlideCard__descriptionContainer">
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
@@ -52,16 +53,16 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                // Changement de la key pour qu'elle corresponde à la slide en cours
-                key={_.date}
+                  // Changement de la key pour qu'elle corresponde à la slide en cours
+                  key={_.date}
                   type="radio"
                   name="radio-button"
-                 /* Remplacement de idx par index pour indiquer sur quelle image on se trouve 
+                  /*
+                    Remplacement de idx par index pour indiquer sur quelle image on se trouve 
                   */
                   checked={index === radioIdx}
                   // Ajout de readOnly pour retirer erreur console
                   readOnly
-                  
                 />
               ))}
             </div>
